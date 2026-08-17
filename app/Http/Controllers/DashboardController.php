@@ -47,7 +47,7 @@ class DashboardController extends Controller
                                     ->sum('amount'),
             ]);
         }
-        $maxRevenue = max($revenueTrend->pluck('revenue')->toArray(), 1);
+        $maxRevenue = max([...$revenueTrend->pluck('revenue')->toArray(), 1]);
 
         // Check-in last 7 days
         $checkinTrend = collect();
@@ -58,7 +58,7 @@ class DashboardController extends Controller
                 'count' => CheckIn::whereDate('check_in_at', $day)->count(),
             ]);
         }
-        $maxCheckin = max($checkinTrend->pluck('count')->toArray(), 1);
+        $maxCheckin = max([...$checkinTrend->pluck('count')->toArray(), 1]);
 
         // Membership breakdown
         $membershipBreakdown = MemberSubscription::where('status', 'active')
