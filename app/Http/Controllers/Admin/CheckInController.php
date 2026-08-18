@@ -9,8 +9,11 @@ use Illuminate\Http\Request;
 
 class CheckInController extends Controller
 {
+    use \Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
     public function index(Request $request)
     {
+        $this->authorize('viewAny', CheckIn::class);
         $query = CheckIn::with('member.user', 'checkedInBy');
 
         if ($request->filled('date')) {
@@ -35,6 +38,8 @@ class CheckInController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create', CheckIn::class);
+
         $validated = $request->validate([
             'member_id' => 'required_without:member_code|exists:members,id',
             'member_code' => 'required_without:member_id|string',
@@ -58,6 +63,8 @@ class CheckInController extends Controller
 
     public function checkOut(CheckIn $checkIn)
     {
+        $this->authorize('update', $checkIn);
+
         if ($checkIn->check_out_at) {
             return back()->with('error', 'Member has already checked out.');
         }

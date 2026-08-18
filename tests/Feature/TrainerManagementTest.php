@@ -39,8 +39,8 @@ class TrainerManagementTest extends TestCase
             'name' => 'New Trainer',
             'email' => 'newtrainer@example.com',
             'phone' => '08123456789',
-            'password' => 'password123',
-            'password_confirmation' => 'password123',
+            'password' => 'Password123',
+            'password_confirmation' => 'Password123',
             'specialization' => 'Cardio',
             'hourly_rate' => 200000,
         ]);
@@ -103,8 +103,8 @@ class TrainerManagementTest extends TestCase
         $this->actingAs($this->admin)->post(route('admin.trainers.store'), [
             'name' => 'Trainer Role Test',
             'email' => 'trainerrole@example.com',
-            'password' => 'password123',
-            'password_confirmation' => 'password123',
+            'password' => 'Password123',
+            'password_confirmation' => 'Password123',
         ]);
 
         $user = User::where('email', 'trainerrole@example.com')->first();

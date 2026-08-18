@@ -11,8 +11,12 @@ use Illuminate\Http\Request;
 
 class MaintenanceController extends Controller
 {
+    use \Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
     public function index(Request $request)
     {
+        $this->authorize('viewAny', MaintenanceSchedule::class);
+
         $query = MaintenanceSchedule::with('inventoryItem', 'assignedTo');
 
         if ($status = $request->input('status')) {
@@ -29,6 +33,8 @@ class MaintenanceController extends Controller
 
     public function create()
     {
+        $this->authorize('create', MaintenanceSchedule::class);
+
         $items = InventoryItem::orderBy('name')->get();
         $users = User::orderBy('name')->get();
         return view('admin.maintenance.create', compact('items', 'users'));
@@ -36,9 +42,10 @@ class MaintenanceController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create', MaintenanceSchedule::class);
+
         $validated = $request->validate([
             'inventory_item_id' => 'required|exists:inventory_items,id',
-            'maintenance_type' => 'nullable|string|max:100',
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'frequency_days' => 'nullable|integer|min:1',
@@ -67,6 +74,8 @@ class MaintenanceController extends Controller
 
     public function updateStatus(Request $request, MaintenanceSchedule $schedule)
     {
+        $this->authorize('update', $schedule);
+
         $validated = $request->validate([
             'status' => 'required|in:pending,in_progress,overdue,completed',
         ]);
@@ -88,6 +97,8 @@ class MaintenanceController extends Controller
 
     public function logMaintenance(Request $request, MaintenanceSchedule $schedule)
     {
+        $this->authorize('update', $schedule);
+
         $validated = $request->validate([
             'performed_at' => 'required|date',
             'parts_replaced' => 'nullable|string',
@@ -112,6 +123,8 @@ class MaintenanceController extends Controller
 
     public function destroy(MaintenanceSchedule $schedule)
     {
+        $this->authorize('delete', $schedule);
+
         MaintenanceLog::where('maintenance_schedule_id', $schedule->id)->delete();
         $schedule->delete();
         return redirect()->route('admin.maintenance.index')->with('success', 'Schedule deleted.');

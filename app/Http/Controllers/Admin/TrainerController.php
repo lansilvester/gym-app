@@ -11,8 +11,12 @@ use Illuminate\Support\Str;
 
 class TrainerController extends Controller
 {
+    use \Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
     public function index(Request $request)
     {
+        $this->authorize('viewAny', Trainer::class);
+
         $query = Trainer::with('user');
 
         if ($search = $request->input('search')) {
@@ -28,16 +32,20 @@ class TrainerController extends Controller
 
     public function create()
     {
+        $this->authorize('create', Trainer::class);
+
         return view('admin.trainers.create');
     }
 
     public function store(Request $request)
     {
+        $this->authorize('create', Trainer::class);
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'phone' => 'nullable|string|max:20',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => ['required', 'string', 'min:8', 'confirmed', \Illuminate\Validation\Rules\Password::min(8)->mixedCase()->numbers()],
             'specialization' => 'nullable|string|max:255',
             'certifications' => 'nullable|string',
             'hourly_rate' => 'nullable|numeric|min:0',
@@ -69,6 +77,8 @@ class TrainerController extends Controller
 
     public function show(Trainer $trainer)
     {
+        $this->authorize('view', $trainer);
+
         $trainer->load([
             'user',
             'schedules',
@@ -85,6 +95,8 @@ class TrainerController extends Controller
 
     public function update(Request $request, Trainer $trainer)
     {
+        $this->authorize('update', $trainer);
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => "required|email|unique:users,email,{$trainer->user_id}",
@@ -115,12 +127,16 @@ class TrainerController extends Controller
 
     public function destroy(Trainer $trainer)
     {
+        $this->authorize('delete', $trainer);
+
         $trainer->user->delete();
         return redirect()->route('admin.trainers.index')->with('success', 'Trainer deleted successfully.');
     }
 
     public function updateSchedule(Request $request, Trainer $trainer)
     {
+        $this->authorize('update', $trainer);
+
         $validated = $request->validate([
             'schedules' => 'required|array',
             'schedules.*.day_of_week' => 'required|integer|min:0|max:6',

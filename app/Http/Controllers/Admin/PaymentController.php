@@ -10,8 +10,12 @@ use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
+    use \Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
     public function index(Request $request)
     {
+        $this->authorize('viewAny', Payment::class);
+
         $query = Payment::with('invoice.member.user', 'paymentMethod', 'receivedBy');
 
         if ($status = $request->input('status')) {
@@ -29,6 +33,8 @@ class PaymentController extends Controller
 
     public function create()
     {
+        $this->authorize('create', Payment::class);
+
         $invoices = Invoice::whereIn('status', ['draft', 'unpaid', 'partially_paid'])
             ->with('member.user')
             ->latest()
@@ -39,6 +45,8 @@ class PaymentController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create', Payment::class);
+
         $validated = $request->validate([
             'invoice_id' => 'required|exists:invoices,id',
             'payment_method_id' => 'required|exists:payment_methods,id',
@@ -66,6 +74,8 @@ class PaymentController extends Controller
 
     public function show(Payment $payment)
     {
+        $this->authorize('view', $payment);
+
         $payment->load('invoice.member.user', 'paymentMethod', 'receivedBy', 'refunds');
         return view('admin.payments.show', compact('payment'));
     }

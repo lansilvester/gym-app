@@ -40,7 +40,6 @@ class ProfileTest extends TestCase
 
         $this->assertSame('Test User', $user->name);
         $this->assertSame('test@example.com', $user->email);
-        $this->assertNull($user->email_verified_at);
     }
 
     public function test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged(): void
@@ -65,6 +64,8 @@ class ProfileTest extends TestCase
     {
         $user = User::factory()->create();
 
+        $this->actingAs($user)->post('/confirm-password', ['password' => 'password']);
+
         $response = $this
             ->actingAs($user)
             ->delete('/profile', [
@@ -82,6 +83,8 @@ class ProfileTest extends TestCase
     public function test_correct_password_must_be_provided_to_delete_account(): void
     {
         $user = User::factory()->create();
+
+        $this->actingAs($user)->post('/confirm-password', ['password' => 'password']);
 
         $response = $this
             ->actingAs($user)

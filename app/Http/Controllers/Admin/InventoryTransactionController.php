@@ -9,8 +9,12 @@ use Illuminate\Http\Request;
 
 class InventoryTransactionController extends Controller
 {
+    use \Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
     public function index(Request $request)
     {
+        $this->authorize('viewAny', InventoryTransaction::class);
+
         $query = InventoryTransaction::with('inventoryItem', 'performedBy');
 
         if ($type = $request->input('type')) {
@@ -34,12 +38,16 @@ class InventoryTransactionController extends Controller
 
     public function create()
     {
+        $this->authorize('create', InventoryItem::class);
+
         $items = InventoryItem::orderBy('name')->get();
         return view('admin.inventory-transactions.create', compact('items'));
     }
 
     public function store(Request $request)
     {
+        $this->authorize('create', InventoryItem::class);
+
         $validated = $request->validate([
             'inventory_item_id' => 'required|exists:inventory_items,id',
             'type' => 'required|in:purchase,usage,damaged,adjustment,return,transfer',

@@ -11,8 +11,12 @@ use Illuminate\Support\Facades\DB;
 
 class InvoiceController extends Controller
 {
+    use \Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
     public function index(Request $request)
     {
+        $this->authorize('viewAny', Invoice::class);
+
         $query = Invoice::with('member.user');
 
         if ($status = $request->input('status')) {
@@ -31,12 +35,16 @@ class InvoiceController extends Controller
 
     public function create()
     {
+        $this->authorize('create', Invoice::class);
+
         $members = Member::with('user')->get();
         return view('admin.invoices.create', compact('members'));
     }
 
     public function store(Request $request)
     {
+        $this->authorize('create', Invoice::class);
+
         $validated = $request->validate([
             'member_id' => 'required|exists:members,id',
             'notes' => 'nullable|string',
@@ -86,12 +94,16 @@ class InvoiceController extends Controller
 
     public function show(Invoice $invoice)
     {
+        $this->authorize('view', $invoice);
+
         $invoice->load(['member.user', 'items', 'payments.paymentMethod']);
         return view('admin.invoices.show', compact('invoice'));
     }
 
     public function edit(Invoice $invoice)
     {
+        $this->authorize('update', $invoice);
+
         $invoice->load('items');
         $members = Member::with('user')->get();
         return view('admin.invoices.edit', compact('invoice', 'members'));
@@ -99,6 +111,8 @@ class InvoiceController extends Controller
 
     public function update(Request $request, Invoice $invoice)
     {
+        $this->authorize('update', $invoice);
+
         $validated = $request->validate([
             'notes' => 'nullable|string',
             'due_date' => 'nullable|date',
@@ -146,6 +160,8 @@ class InvoiceController extends Controller
 
     public function destroy(Invoice $invoice)
     {
+        $this->authorize('delete', $invoice);
+
         $invoice->items()->delete();
         $invoice->delete();
         return redirect()->route('admin.invoices.index')->with('success', 'Invoice deleted.');

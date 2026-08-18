@@ -25,8 +25,8 @@ class MemberRoleTest extends TestCase
         $this->actingAs($admin)->post(route('admin.members.store'), [
             'name' => 'New Member',
             'email' => 'newmember@example.com',
-            'password' => 'password123',
-            'password_confirmation' => 'password123',
+            'password' => 'Password123',
+            'password_confirmation' => 'Password123',
         ]);
 
         $user = User::where('email', 'newmember@example.com')->first();

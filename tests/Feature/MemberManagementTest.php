@@ -48,8 +48,8 @@ class MemberManagementTest extends TestCase
             'name' => 'Test Member',
             'email' => 'testmember@example.com',
             'phone' => '08123456789',
-            'password' => 'password123',
-            'password_confirmation' => 'password123',
+            'password' => 'Password123',
+            'password_confirmation' => 'Password123',
             'gender' => 'male',
             'birth_date' => '1995-05-15',
         ]);
@@ -73,8 +73,8 @@ class MemberManagementTest extends TestCase
         $response = $this->actingAs($this->admin)->post(route('admin.members.store'), [
             'name' => 'Test',
             'email' => 'existing@email.com',
-            'password' => 'password123',
-            'password_confirmation' => 'password123',
+            'password' => 'Password123',
+            'password_confirmation' => 'Password123',
         ]);
 
         $response->assertSessionHasErrors(['email']);

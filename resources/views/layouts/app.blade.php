@@ -43,31 +43,41 @@
                     Dashboard
                 </a>
 
+                @if(Auth::user()->hasRole('super_admin'))
                 <div class="sidebar-section-label">User Management</div>
                 <a href="{{ route('admin.roles.index') }}" class="sidebar-link {{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">
                     <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/></svg>
                     Roles & Permissions
                 </a>
+                @endif
 
+                @if(Auth::user()->hasAnyPermission(['member.view', 'member.create', 'member.edit', 'member.delete']))
                 <div class="sidebar-section-label">Member</div>
                 <a href="{{ route('admin.members.index') }}" class="sidebar-link {{ request()->routeIs('admin.members.*') ? 'active' : '' }}">
                     <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                     Members
                 </a>
+                @if(Auth::user()->hasAnyRole(['super_admin', 'admin']))
                 <a href="{{ route('admin.packages.index') }}" class="sidebar-link {{ request()->routeIs('admin.packages.*') ? 'active' : '' }}">
                     <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
                     Packages
                 </a>
+                @endif
                 <a href="{{ route('admin.subscriptions.index') }}" class="sidebar-link {{ request()->routeIs('admin.subscriptions.*') ? 'active' : '' }}">
                     <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     Subscriptions
                 </a>
+                @endif
 
+                @if(Auth::user()->hasAnyPermission(['checkin.view', 'checkin.manual_override', 'trainer.view', 'trainer.schedule', 'trainer.booking']))
                 <div class="sidebar-section-label">Operations</div>
+                @if(Auth::user()->hasAnyPermission(['checkin.view', 'checkin.manual_override']))
                 <a href="{{ route('admin.checkins.index') }}" class="sidebar-link {{ request()->routeIs('admin.checkins.*') ? 'active' : '' }}">
                     <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     Check-in
                 </a>
+                @endif
+                @if(Auth::user()->hasAnyPermission(['trainer.view', 'trainer.schedule', 'trainer.booking']))
                 <a href="{{ route('admin.trainers.index') }}" class="sidebar-link {{ request()->routeIs('admin.trainers.*') ? 'active' : '' }}">
                     <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                     Trainers
@@ -76,7 +86,10 @@
                     <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                     PT Bookings
                 </a>
+                @endif
+                @endif
 
+                @if(Auth::user()->hasAnyPermission(['payment.view', 'payment.create', 'payment.refund']))
                 <div class="sidebar-section-label">Finance</div>
                 <a href="{{ route('admin.invoices.index') }}" class="sidebar-link {{ request()->routeIs('admin.invoices.*') ? 'active' : '' }}">
                     <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z"/></svg>
@@ -86,7 +99,9 @@
                     <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
                     Payments
                 </a>
+                @endif
 
+                @if(Auth::user()->hasAnyPermission(['inventory.view', 'inventory.manage', 'inventory.maintenance']))
                 <div class="sidebar-section-label">Inventory</div>
                 <a href="{{ route('admin.inventory.index') }}" class="sidebar-link {{ request()->routeIs('admin.inventory.*') ? 'active' : '' }}">
                     <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
@@ -96,10 +111,13 @@
                     <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/></svg>
                     Transactions
                 </a>
+                @if(Auth::user()->hasPermissionTo('inventory.maintenance'))
                 <a href="{{ route('admin.maintenance.index') }}" class="sidebar-link {{ request()->routeIs('admin.maintenance.*') ? 'active' : '' }}">
                     <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                     Maintenance
                 </a>
+                @endif
+                @endif
             </nav>
 
             {{-- Sidebar footer --}}
@@ -144,7 +162,7 @@
 
                         {{-- User dropdown --}}
                         @auth
-                        <div class="relative" x-data="{ open: false }">
+                        <div class="relative" x-data="{ open: false, logoutConfirm: false }">
                             <button @click="open = !open" class="flex items-center gap-3 pl-1 pr-3 py-1 rounded-xl hover:bg-slate-100 transition">
                                 <div class="avatar avatar-sm" style="background: linear-gradient(135deg, #6366f1, #a855f7);">
                                     {{ substr(Auth::user()->name, 0, 1) }}
@@ -153,7 +171,7 @@
                                 <svg class="w-4 h-4 text-slate-400 transition-transform" :class="open && 'rotate-180'" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
                             </button>
                             <div x-show="open" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 scale-95 translate-y-1" x-transition:enter-end="opacity-100 scale-100 translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
-                                 @click.away="open = false" class="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl shadow-slate-200/50 py-2 z-50 border border-slate-100">
+                                 @click.away="open = false; logoutConfirm = false" class="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl shadow-slate-200/50 py-2 z-50 border border-slate-100">
                                 <div class="px-4 py-3 border-b border-slate-100">
                                     <div class="text-sm font-semibold text-slate-800">{{ Auth::user()->name }}</div>
                                     <div class="text-xs text-slate-400">{{ Auth::user()->email }}</div>
@@ -163,13 +181,28 @@
                                     My Profile
                                 </a>
                                 <div class="border-t border-slate-100 my-1"></div>
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <button type="submit" class="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition">
+
+                                {{-- Logout with confirmation --}}
+                                <div x-show="!logoutConfirm">
+                                    <button @click="logoutConfirm = true" type="button" class="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
                                         Log Out
                                     </button>
-                                </form>
+                                </div>
+                                <div x-show="logoutConfirm" class="px-4 py-3">
+                                    <p class="text-xs text-slate-500 mb-2">Yakin mau logout?</p>
+                                    <div class="flex gap-2">
+                                        <form method="POST" action="{{ route('logout') }}" class="flex-1">
+                                            @csrf
+                                            <button type="submit" class="w-full px-3 py-1.5 text-xs font-medium text-white bg-red-500 rounded-lg hover:bg-red-600 transition">
+                                                Logout
+                                            </button>
+                                        </form>
+                                        <button @click="logoutConfirm = false" type="button" class="flex-1 px-3 py-1.5 text-xs font-medium text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200 transition">
+                                            Batal
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         @endauth

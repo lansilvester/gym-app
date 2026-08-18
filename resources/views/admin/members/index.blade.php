@@ -16,7 +16,14 @@
     @endif
 
     <form method="GET" class="flex gap-2">
-        <input type="text" name="search" value="{{ request('search') }}" placeholder="Search name, email, code..." class="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+        <div class="relative flex-1">
+            <input type="text" name="search" value="{{ request('search') }}" placeholder="Search by name, email, or code..." class="w-full border border-gray-300 rounded-lg px-3 py-2 {{ request('search') ? 'pr-9' : '' }} text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            @if(request('search'))
+                <a href="{{ route('admin.members.index') }}" class="absolute right-1 top-1/2 -translate-y-1/2 w-7 h-7 flex items-center justify-center rounded-md text-gray-400 hover:text-white hover:bg-gray-400 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                </a>
+            @endif
+        </div>
         <button type="submit" class="bg-gray-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-gray-700">Search</button>
     </form>
 

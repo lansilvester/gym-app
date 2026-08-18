@@ -9,8 +9,12 @@ use Illuminate\Http\Request;
 
 class InventoryController extends Controller
 {
+    use \Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
     public function index(Request $request)
     {
+        $this->authorize('viewAny', InventoryItem::class);
+
         $query = InventoryItem::with('category');
 
         if ($categoryId = $request->input('category_id')) {
@@ -34,12 +38,16 @@ class InventoryController extends Controller
 
     public function create()
     {
+        $this->authorize('create', InventoryItem::class);
+
         $categories = InventoryCategory::orderBy('name')->get();
         return view('admin.inventory.create', compact('categories'));
     }
 
     public function store(Request $request)
     {
+        $this->authorize('create', InventoryItem::class);
+
         $validated = $request->validate([
             'category_id' => 'required|exists:inventory_categories,id',
             'sku' => 'nullable|string|unique:inventory_items,sku',
@@ -63,21 +71,27 @@ class InventoryController extends Controller
 
     public function show(InventoryItem $inventory)
     {
+        $this->authorize('view', $inventory);
+
         $inventory->load(['category', 'transactions' => fn($q) => $q->with('performedBy')->latest()->limit(20)]);
         return view('admin.inventory.show', ['item' => $inventory]);
     }
 
     public function edit(InventoryItem $inventory)
     {
+        $this->authorize('update', $inventory);
+
         $categories = InventoryCategory::orderBy('name')->get();
         return view('admin.inventory.edit', ['item' => $inventory, 'categories' => $categories]);
     }
 
     public function update(Request $request, InventoryItem $inventory)
     {
+        $this->authorize('update', $inventory);
+
         $validated = $request->validate([
             'category_id' => 'required|exists:inventory_categories,id',
-            'sku' => "nullable|string|unique:inventory_items,sku,{$inventory->id}",
+            'sku' => 'nullable|string|unique:inventory_items,sku,' . $inventory->id,
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'type' => 'nullable|string|max:100',
@@ -88,7 +102,7 @@ class InventoryController extends Controller
             'purchase_price' => 'nullable|numeric|min:0',
             'current_value' => 'nullable|numeric|min:0',
             'location' => 'nullable|string|max:255',
-            'status' => 'nullable|in:active,in_stock,low_stock,out_of_stock,discontinued',
+            'status' => 'nullable|in:in_stock,low_stock,out_of_stock,discontinued',
         ]);
 
         $inventory->update($validated);
@@ -98,6 +112,8 @@ class InventoryController extends Controller
 
     public function destroy(InventoryItem $inventory)
     {
+        $this->authorize('delete', $inventory);
+
         $inventory->delete();
         return redirect()->route('admin.inventory.index')->with('success', 'Item deleted.');
     }

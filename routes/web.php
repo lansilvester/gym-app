@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\SubscriptionController;
 use App\Http\Controllers\Admin\TrainerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -21,19 +22,22 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', DashboardController::class)
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth'])
     ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy')
+        ->middleware('password.confirm');
+    Route::get('/sessions', [SessionController::class, 'index'])->name('sessions');
+    Route::delete('/sessions/{sessionId}', [SessionController::class, 'destroy'])->name('sessions.destroy');
 });
 
-// Admin routes
-Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
+// Admin routes — only staff roles can access
+Route::middleware(['auth', 'role:super_admin|admin|cashier|trainer'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('members', MemberController::class);
-    Route::resource('packages', PackageController::class)->except(['show']);
+    Route::resource('packages', PackageController::class)->except(['show'])->middleware('role:super_admin|admin');
     Route::resource('subscriptions', SubscriptionController::class)->except(['show']);
     Route::resource('trainers', TrainerController::class);
 
@@ -60,13 +64,13 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
 
     Route::prefix('maintenance')->name('maintenance.')->group(function () {
         Route::get('/', [MaintenanceController::class, 'index'])->name('index');
-        Route::get('{maintenanceSchedule}', [MaintenanceController::class, 'show'])->name('show');
+        Route::get('{schedule}', [MaintenanceController::class, 'show'])->name('show');
         Route::post('/', [MaintenanceController::class, 'store'])->name('store');
-        Route::patch('{maintenanceSchedule}/status', [MaintenanceController::class, 'updateStatus'])->name('status.update');
-        Route::post('{maintenanceSchedule}/log', [MaintenanceController::class, 'logMaintenance'])->name('log');
+        Route::patch('{schedule}/status', [MaintenanceController::class, 'updateStatus'])->name('status.update');
+        Route::post('{schedule}/log', [MaintenanceController::class, 'logMaintenance'])->name('log');
     });
 
-    Route::resource('roles', RoleController::class)->except(['show']);
+    Route::resource('roles', RoleController::class)->except(['show'])->middleware('role:super_admin');
 });
 
 require __DIR__.'/auth.php';

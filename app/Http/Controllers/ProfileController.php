@@ -50,6 +50,26 @@ class ProfileController extends Controller
 
         Auth::logout();
 
+        // Cascade delete related data
+        if ($user->member) {
+            $user->member->checkIns()->delete();
+            $user->member->invoices()->each(function ($invoice) {
+                $invoice->items()->delete();
+                $invoice->payments()->delete();
+            });
+            $user->member->subscriptions()->delete();
+            $user->member->ptBookings()->delete();
+            $user->member->bodyMeasurements()->delete();
+            $user->member->medicalInfo()->delete();
+            $user->member->delete();
+        }
+
+        if ($user->trainer) {
+            $user->trainer->schedules()->delete();
+            $user->trainer->ptBookings()->delete();
+            $user->trainer->delete();
+        }
+
         $user->delete();
 
         $request->session()->invalidate();

@@ -11,8 +11,12 @@ use Illuminate\Http\Request;
 
 class PtBookingController extends Controller
 {
+    use \Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
     public function index(Request $request)
     {
+        $this->authorize('viewAny', PtBooking::class);
+
         $query = PtBooking::with('member.user', 'trainer.user');
 
         if ($status = $request->input('status')) {
@@ -33,6 +37,8 @@ class PtBookingController extends Controller
 
     public function create()
     {
+        $this->authorize('create', PtBooking::class);
+
         $members = Member::with('user', 'activeSubscription.package')
             ->whereHas('activeSubscription')
             ->get();
@@ -42,6 +48,8 @@ class PtBookingController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create', PtBooking::class);
+
         $validated = $request->validate([
             'member_id' => 'required|exists:members,id',
             'trainer_id' => 'required|exists:trainers,id',
@@ -63,12 +71,16 @@ class PtBookingController extends Controller
 
     public function show(PtBooking $ptBooking)
     {
+        $this->authorize('view', $ptBooking);
+
         $ptBooking->load('member.user', 'trainer.user', 'subscription.package');
         return view('admin.pt-bookings.show', compact('ptBooking'));
     }
 
     public function updateStatus(Request $request, PtBooking $ptBooking)
     {
+        $this->authorize('update', $ptBooking);
+
         $validated = $request->validate([
             'status' => 'required|in:confirmed,completed,cancelled',
             'cancel_reason' => 'required_if:status,cancelled|nullable|string',
