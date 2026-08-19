@@ -42,7 +42,7 @@ class PackageController extends Controller
 
         MembershipPackage::create($validated);
 
-        return redirect()->route('admin.packages.index')->with('success', 'Package created.');
+        return redirect()->route('admin.packages.index')->with('success', 'Paket berhasil dibuat.');
     }
 
     public function edit(MembershipPackage $package)
@@ -69,7 +69,7 @@ class PackageController extends Controller
 
         $package->update($validated);
 
-        return redirect()->route('admin.packages.index')->with('success', 'Package updated.');
+        return redirect()->route('admin.packages.index')->with('success', 'Paket berhasil diperbarui.');
     }
 
     public function destroy(MembershipPackage $package)
@@ -77,6 +77,6 @@ class PackageController extends Controller
         $this->authorize('delete', $package);
 
         $package->delete();
-        return redirect()->route('admin.packages.index')->with('success', 'Package deleted.');
+        return redirect()->route('admin.packages.index')->with('success', 'Paket berhasil dihapus.');
     }
 }

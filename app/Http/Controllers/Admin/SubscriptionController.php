@@ -63,7 +63,7 @@ class SubscriptionController extends Controller
 
         MemberSubscription::create($validated);
 
-        return redirect()->route('admin.subscriptions.index')->with('success', 'Subscription created.');
+        return redirect()->route('admin.subscriptions.index')->with('success', 'Langganan berhasil dibuat.');
     }
 
     public function edit(MemberSubscription $subscription)
@@ -93,7 +93,7 @@ class SubscriptionController extends Controller
 
         $subscription->update($validated);
 
-        return redirect()->route('admin.subscriptions.index')->with('success', 'Subscription updated.');
+        return redirect()->route('admin.subscriptions.index')->with('success', 'Langganan berhasil diperbarui.');
     }
 
     public function destroy(MemberSubscription $subscription)
@@ -101,6 +101,6 @@ class SubscriptionController extends Controller
         $this->authorize('delete', $subscription);
 
         $subscription->delete();
-        return redirect()->route('admin.subscriptions.index')->with('success', 'Subscription deleted.');
+        return redirect()->route('admin.subscriptions.index')->with('success', 'Langganan berhasil dihapus.');
     }
 }

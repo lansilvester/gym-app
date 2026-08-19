@@ -26,9 +26,10 @@ class InventoryController extends Controller
         }
 
         if ($search = $request->input('search')) {
-            $query->where(fn($q) => $q->where('name', 'like', "%{$search}%")
-                ->orWhere('sku', 'like', "%{$search}%")
-                ->orWhere('description', 'like', "%{$search}%"));
+            $search = str_replace(['%', '_'], ['\%', '\_'], $search);
+            $query->where(fn($q) => $q->where('name', 'like', "{$search}%")
+                ->orWhere('sku', 'like', "{$search}%")
+                ->orWhere('description', 'like', "{$search}%"));
         }
 
         $items = $query->latest()->paginate(15);
@@ -61,12 +62,12 @@ class InventoryController extends Controller
             'purchase_price' => 'nullable|numeric|min:0',
             'current_value' => 'nullable|numeric|min:0',
             'location' => 'nullable|string|max:255',
-            'status' => 'nullable|in:in_stock,low_stock,out_of_stock,discontinued',
+            'status' => 'nullable|in:active,low_stock,out_of_stock,maintenance,retired',
         ]);
 
         InventoryItem::create($validated);
 
-        return redirect()->route('admin.inventory.index')->with('success', 'Item created successfully.');
+        return redirect()->route('admin.inventory.index')->with('success', 'Barang berhasil dibuat.');
     }
 
     public function show(InventoryItem $inventory)
@@ -102,12 +103,12 @@ class InventoryController extends Controller
             'purchase_price' => 'nullable|numeric|min:0',
             'current_value' => 'nullable|numeric|min:0',
             'location' => 'nullable|string|max:255',
-            'status' => 'nullable|in:in_stock,low_stock,out_of_stock,discontinued',
+            'status' => 'nullable|in:active,low_stock,out_of_stock,maintenance,retired',
         ]);
 
         $inventory->update($validated);
 
-        return redirect()->route('admin.inventory.show', $inventory)->with('success', 'Item updated successfully.');
+        return redirect()->route('admin.inventory.show', $inventory)->with('success', 'Barang berhasil diperbarui.');
     }
 
     public function destroy(InventoryItem $inventory)
@@ -115,6 +116,6 @@ class InventoryController extends Controller
         $this->authorize('delete', $inventory);
 
         $inventory->delete();
-        return redirect()->route('admin.inventory.index')->with('success', 'Item deleted.');
+        return redirect()->route('admin.inventory.index')->with('success', 'Barang berhasil dihapus.');
     }
 }

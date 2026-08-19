@@ -1,9 +1,9 @@
 @extends('layouts.app')
-@section('title', 'Payments')
+@section('title', 'Pembayaran')
 
 @section('content')
 <div class="space-y-4">
-    <h1 class="text-2xl font-bold text-gray-800">Payment History</h1>
+    <h1 class="text-2xl font-bold text-gray-800">Riwayat Pembayaran</h1>
 
     @if(session('success'))
         <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg text-sm">{{ session('success') }}</div>
@@ -13,13 +13,13 @@
         <table class="w-full text-sm">
             <thead class="bg-gray-50 border-b border-gray-200">
                 <tr>
-                    <th class="px-4 py-3 text-left font-medium text-gray-600">Payment #</th>
-                    <th class="px-4 py-3 text-left font-medium text-gray-600">Invoice #</th>
-                    <th class="px-4 py-3 text-left font-medium text-gray-600">Member</th>
-                    <th class="px-4 py-3 text-left font-medium text-gray-600">Amount</th>
-                    <th class="px-4 py-3 text-left font-medium text-gray-600">Method</th>
-                    <th class="px-4 py-3 text-left font-medium text-gray-600">Date</th>
-                    <th class="px-4 py-3 text-left font-medium text-gray-600">Received By</th>
+                    <th class="px-4 py-3 text-left font-medium text-gray-600">No. Pembayaran</th>
+                    <th class="px-4 py-3 text-left font-medium text-gray-600">No. Faktur</th>
+                    <th class="px-4 py-3 text-left font-medium text-gray-600">Anggota</th>
+                    <th class="px-4 py-3 text-left font-medium text-gray-600">Jumlah</th>
+                    <th class="px-4 py-3 text-left font-medium text-gray-600">Metode</th>
+                    <th class="px-4 py-3 text-left font-medium text-gray-600">Tanggal</th>
+                    <th class="px-4 py-3 text-left font-medium text-gray-600">Diterima Oleh</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
@@ -34,7 +34,7 @@
                     <td class="px-4 py-3">{{ $payment->receivedBy->name ?? '-' }}</td>
                 </tr>
                 @empty
-                <tr><td colspan="7" class="px-4 py-8 text-center text-gray-500">No payments found</td></tr>
+                <tr><td colspan="7" class="px-4 py-8 text-center text-gray-500">Tidak ada pembayaran ditemukan</td></tr>
                 @endforelse
             </tbody>
         </table>

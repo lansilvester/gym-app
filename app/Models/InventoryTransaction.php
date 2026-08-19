@@ -17,4 +17,5 @@ class InventoryTransaction extends Model
 
     public function inventoryItem(): BelongsTo { return $this->belongsTo(InventoryItem::class, 'inventory_item_id'); }
     public function performer(): BelongsTo { return $this->belongsTo(User::class, 'performed_by'); }
+    public function performedBy(): BelongsTo { return $this->belongsTo(User::class, 'performed_by'); }
 }

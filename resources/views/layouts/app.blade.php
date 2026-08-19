@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Gym App') }} - @yield('title', 'Dashboard')</title>
+    <title>{{ config('app.name', 'Gym App') }} - @yield('title', 'Dasbor')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -32,7 +32,7 @@
                 </div>
                 <div>
                     <div class="text-white font-bold text-[15px] leading-tight">GYM APP</div>
-                    <div class="text-slate-400 text-[10px] font-medium tracking-wider uppercase">Management System</div>
+                    <div class="text-slate-400 text-[10px] font-medium tracking-wider uppercase">Sistem Manajemen</div>
                 </div>
             </div>
 
@@ -40,37 +40,37 @@
             <nav class="flex-1 overflow-y-auto py-3 px-3 space-y-0.5 scrollbar-thin">
                 <a href="{{ route('dashboard') }}" class="sidebar-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                     <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-                    Dashboard
+                    Dasbor
                 </a>
 
                 @if(Auth::user()->hasRole('super_admin'))
-                <div class="sidebar-section-label">User Management</div>
+                <div class="sidebar-section-label">Manajemen Pengguna</div>
                 <a href="{{ route('admin.roles.index') }}" class="sidebar-link {{ request()->routeIs('admin.roles.*') ? 'active' : '' }}">
                     <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/></svg>
-                    Roles & Permissions
+                    Role & Izin
                 </a>
                 @endif
 
                 @if(Auth::user()->hasAnyPermission(['member.view', 'member.create', 'member.edit', 'member.delete']))
-                <div class="sidebar-section-label">Member</div>
+                <div class="sidebar-section-label">Keanggotaan</div>
                 <a href="{{ route('admin.members.index') }}" class="sidebar-link {{ request()->routeIs('admin.members.*') ? 'active' : '' }}">
                     <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                    Members
+                    Anggota
                 </a>
                 @if(Auth::user()->hasAnyRole(['super_admin', 'admin']))
                 <a href="{{ route('admin.packages.index') }}" class="sidebar-link {{ request()->routeIs('admin.packages.*') ? 'active' : '' }}">
                     <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
-                    Packages
+                    Paket
                 </a>
                 @endif
                 <a href="{{ route('admin.subscriptions.index') }}" class="sidebar-link {{ request()->routeIs('admin.subscriptions.*') ? 'active' : '' }}">
                     <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    Subscriptions
+                    Langganan
                 </a>
                 @endif
 
                 @if(Auth::user()->hasAnyPermission(['checkin.view', 'checkin.manual_override', 'trainer.view', 'trainer.schedule', 'trainer.booking']))
-                <div class="sidebar-section-label">Operations</div>
+                <div class="sidebar-section-label">Operasional</div>
                 @if(Auth::user()->hasAnyPermission(['checkin.view', 'checkin.manual_override']))
                 <a href="{{ route('admin.checkins.index') }}" class="sidebar-link {{ request()->routeIs('admin.checkins.*') ? 'active' : '' }}">
                     <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -80,41 +80,41 @@
                 @if(Auth::user()->hasAnyPermission(['trainer.view', 'trainer.schedule', 'trainer.booking']))
                 <a href="{{ route('admin.trainers.index') }}" class="sidebar-link {{ request()->routeIs('admin.trainers.*') ? 'active' : '' }}">
                     <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-                    Trainers
+                    Pelatih
                 </a>
                 <a href="{{ route('admin.pt-bookings.index') }}" class="sidebar-link {{ request()->routeIs('admin.pt-bookings.*') ? 'active' : '' }}">
                     <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                    PT Bookings
+                    Booking PT
                 </a>
                 @endif
                 @endif
 
                 @if(Auth::user()->hasAnyPermission(['payment.view', 'payment.create', 'payment.refund']))
-                <div class="sidebar-section-label">Finance</div>
+                <div class="sidebar-section-label">Keuangan</div>
                 <a href="{{ route('admin.invoices.index') }}" class="sidebar-link {{ request()->routeIs('admin.invoices.*') ? 'active' : '' }}">
                     <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z"/></svg>
-                    Invoices
+                    Faktur
                 </a>
                 <a href="{{ route('admin.payments.index') }}" class="sidebar-link {{ request()->routeIs('admin.payments.*') ? 'active' : '' }}">
                     <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                    Payments
+                    Pembayaran
                 </a>
                 @endif
 
                 @if(Auth::user()->hasAnyPermission(['inventory.view', 'inventory.manage', 'inventory.maintenance']))
-                <div class="sidebar-section-label">Inventory</div>
+                <div class="sidebar-section-label">Inventaris</div>
                 <a href="{{ route('admin.inventory.index') }}" class="sidebar-link {{ request()->routeIs('admin.inventory.*') ? 'active' : '' }}">
                     <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
-                    Inventory Items
+                    Barang Inventaris
                 </a>
                 <a href="{{ route('admin.inventory-transactions.index') }}" class="sidebar-link {{ request()->routeIs('admin.inventory-transactions.*') ? 'active' : '' }}">
                     <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/></svg>
-                    Transactions
+                    Transaksi
                 </a>
                 @if(Auth::user()->hasPermissionTo('inventory.maintenance'))
                 <a href="{{ route('admin.maintenance.index') }}" class="sidebar-link {{ request()->routeIs('admin.maintenance.*') ? 'active' : '' }}">
                     <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                    Maintenance
+                    Pemeliharaan
                 </a>
                 @endif
                 @endif
@@ -127,7 +127,7 @@
                         {{ substr(Auth::user()->name ?? 'U', 0, 1) }}
                     </div>
                     <div class="flex-1 min-w-0">
-                        <div class="text-white text-sm font-medium truncate">{{ Auth::user()->name ?? 'User' }}</div>
+                        <div class="text-white text-sm font-medium truncate">{{ Auth::user()->name ?? 'Pengguna' }}</div>
                         <div class="text-slate-400 text-[11px] truncate">{{ Auth::user()->email ?? '' }}</div>
                     </div>
                 </div>
@@ -147,7 +147,7 @@
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
                         </button>
                         <div>
-                            <h1 class="text-lg font-bold text-slate-800">@yield('page-title', 'Dashboard')</h1>
+                            <h1 class="text-lg font-bold text-slate-800">@yield('page-title', 'Dasbor')</h1>
                             <p class="text-xs text-slate-400 -mt-0.5 hidden sm:block">@yield('page-subtitle', '')</p>
                         </div>
                     </div>
@@ -178,7 +178,7 @@
                                 </div>
                                 <a href="{{ route('profile.edit') }}" class="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 transition">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-                                    My Profile
+                                    Profil Saya
                                 </a>
                                 <div class="border-t border-slate-100 my-1"></div>
 
@@ -186,7 +186,7 @@
                                 <div x-show="!logoutConfirm">
                                     <button @click="logoutConfirm = true" type="button" class="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
-                                        Log Out
+                                        Keluar
                                     </button>
                                 </div>
                                 <div x-show="logoutConfirm" class="px-4 py-3">
@@ -195,7 +195,7 @@
                                         <form method="POST" action="{{ route('logout') }}" class="flex-1">
                                             @csrf
                                             <button type="submit" class="w-full px-3 py-1.5 text-xs font-medium text-white bg-red-500 rounded-lg hover:bg-red-600 transition">
-                                                Logout
+                                                Keluar
                                             </button>
                                         </form>
                                         <button @click="logoutConfirm = false" type="button" class="flex-1 px-3 py-1.5 text-xs font-medium text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200 transition">
@@ -236,7 +236,7 @@
                             <svg class="w-4 h-4 text-red-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                         </div>
                         <div>
-                            <p class="text-sm font-semibold mb-1">Validation Error</p>
+                            <p class="text-sm font-semibold mb-1">Error Validasi</p>
                             <ul class="text-sm list-disc list-inside space-y-0.5">
                                 @foreach($errors->all() as $error)
                                     <li>{{ $error }}</li>

@@ -66,7 +66,7 @@ class PtBookingController extends Controller
 
         PtBooking::create($validated);
 
-        return redirect()->route('admin.pt-bookings.index')->with('success', 'Booking created successfully.');
+        return redirect()->route('admin.pt-bookings.index')->with('success', 'Booking berhasil dibuat.');
     }
 
     public function show(PtBooking $ptBooking)
@@ -92,6 +92,6 @@ class PtBookingController extends Controller
             'cancel_reason' => $validated['cancel_reason'] ?? null,
         ]);
 
-        return redirect()->route('admin.pt-bookings.index')->with('success', 'Booking status updated.');
+        return redirect()->route('admin.pt-bookings.index')->with('success', 'Status booking berhasil diperbarui.');
     }
 }

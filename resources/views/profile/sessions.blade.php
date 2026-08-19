@@ -3,8 +3,8 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="bg-white rounded-2xl shadow-sm border border-slate-100">
                 <div class="px-6 py-4 border-b border-slate-100">
-                    <h2 class="text-lg font-semibold text-slate-800">Active Sessions</h2>
-                    <p class="text-sm text-slate-500 mt-0.5">Manage and revoke your active sessions on other browsers and devices.</p>
+                    <h2 class="text-lg font-semibold text-slate-800">Sesi Aktif</h2>
+                    <p class="text-sm text-slate-500 mt-0.5">Kelola dan batalkan sesi aktif Anda di browser dan perangkat lain.</p>
                 </div>
 
                 <div class="divide-y divide-slate-50">
@@ -24,7 +24,7 @@
                                 <div class="flex items-center gap-2">
                                     <p class="text-sm font-medium text-slate-800">{{ $session->browser }} on {{ $session->platform }}</p>
                                     @if($session->is_current)
-                                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">Current</span>
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">Saat Ini</span>
                                     @endif
                                 </div>
                                 <p class="text-xs text-slate-400 mt-0.5">{{ $session->ip_address }} &middot; {{ $session->last_activity->diffForHumans() }}</p>
@@ -32,18 +32,18 @@
                         </div>
 
                         @if(!$session->is_current)
-                        <form method="POST" action="{{ route('sessions.destroy', $session->id) }}" onsubmit="return confirm('Are you sure you want to terminate this session?')">
+                        <form method="POST" action="{{ route('sessions.destroy', $session->id) }}" onsubmit="return confirm('Apakah Anda y ingin mengakhiri sesi ini?')">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="text-xs font-semibold text-red-600 hover:text-red-700 transition">
-                                Revoke
+                                Batalkan
                             </button>
                         </form>
                         @endif
                     </div>
                     @empty
                     <div class="px-6 py-10 text-center">
-                        <p class="text-sm text-slate-400">No active sessions found.</p>
+                        <p class="text-sm text-slate-400">Tidak ada sesi aktif yang ditemukan.</p>
                     </div>
                     @endforelse
                 </div>

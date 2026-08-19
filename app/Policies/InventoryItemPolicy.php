@@ -14,7 +14,7 @@ class InventoryItemPolicy
 
     public function view(User $user, InventoryItem $inventory): bool
     {
-        return $user->hasAnyPermission(['inventory.view', 'inventory.manage']);
+        return $user->hasAnyPermission(['inventory.view', 'inventory.manage', 'inventory.maintenance']);
     }
 
     public function create(User $user): bool

@@ -43,7 +43,7 @@ class RoleController extends Controller
             $role->syncPermissions(Permission::whereIn('id', $validated['permissions'])->get());
         }
 
-        return redirect()->route('admin.roles.index')->with('success', 'Role created successfully.');
+        return redirect()->route('admin.roles.index')->with('success', 'Role berhasil dibuat.');
     }
 
     public function edit(Role $role)
@@ -67,7 +67,7 @@ class RoleController extends Controller
         $role->update(['name' => $validated['name']]);
         $role->syncPermissions(Permission::whereIn('id', $validated['permissions'] ?? [])->get());
 
-        return redirect()->route('admin.roles.index')->with('success', 'Role updated successfully.');
+        return redirect()->route('admin.roles.index')->with('success', 'Role berhasil diperbarui.');
     }
 
     public function destroy(Role $role)
@@ -75,6 +75,6 @@ class RoleController extends Controller
         $this->authorize('delete', $role);
 
         $role->delete();
-        return redirect()->route('admin.roles.index')->with('success', 'Role deleted.');
+        return redirect()->route('admin.roles.index')->with('success', 'Role berhasil dihapus.');
     }
 }

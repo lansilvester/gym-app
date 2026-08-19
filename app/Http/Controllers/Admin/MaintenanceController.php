@@ -59,7 +59,7 @@ class MaintenanceController extends Controller
 
         MaintenanceSchedule::create($validated);
 
-        return redirect()->route('admin.maintenance.index')->with('success', 'Maintenance schedule created.');
+        return redirect()->route('admin.maintenance.index')->with('success', 'Jadwal pemeliharaan berhasil dibuat.');
     }
 
     public function show(MaintenanceSchedule $schedule)
@@ -92,7 +92,7 @@ class MaintenanceController extends Controller
 
         $schedule->update($data);
 
-        return redirect()->route('admin.maintenance.show', $schedule)->with('success', 'Status updated.');
+        return redirect()->route('admin.maintenance.show', $schedule)->with('success', 'Status berhasil diperbarui.');
     }
 
     public function logMaintenance(Request $request, MaintenanceSchedule $schedule)
@@ -118,7 +118,7 @@ class MaintenanceController extends Controller
                 : $schedule->next_due_date,
         ]);
 
-        return redirect()->route('admin.maintenance.show', $schedule)->with('success', 'Maintenance log recorded.');
+        return redirect()->route('admin.maintenance.show', $schedule)->with('success', 'Catatan pemeliharaan berhasil dicatat.');
     }
 
     public function destroy(MaintenanceSchedule $schedule)
@@ -127,6 +127,6 @@ class MaintenanceController extends Controller
 
         MaintenanceLog::where('maintenance_schedule_id', $schedule->id)->delete();
         $schedule->delete();
-        return redirect()->route('admin.maintenance.index')->with('success', 'Schedule deleted.');
+        return redirect()->route('admin.maintenance.index')->with('success', 'Jadwal berhasil dihapus.');
     }
 }

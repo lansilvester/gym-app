@@ -24,6 +24,5 @@ class MaintenanceLog extends Model
     }
 
     public function maintenanceSchedule(): BelongsTo { return $this->belongsTo(MaintenanceSchedule::class, 'maintenance_schedule_id'); }
-    public function performer(): BelongsTo { return $this->belongsTo(User::class, 'performed_by'); }
     public function performedBy(): BelongsTo { return $this->belongsTo(User::class, 'performed_by'); }
 }

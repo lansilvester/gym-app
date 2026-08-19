@@ -57,8 +57,10 @@ Route::middleware(['auth', 'role:super_admin|admin|cashier|trainer'])->prefix('a
     Route::resource('payments', PaymentController::class)->only(['index', 'store']);
 
     Route::resource('inventory', InventoryController::class);
+    Route::resource('inventory-categories', \App\Http\Controllers\Admin\InventoryCategoryController::class)->except(['show']);
     Route::prefix('inventory-transactions')->name('inventory-transactions.')->group(function () {
         Route::get('/', [InventoryTransactionController::class, 'index'])->name('index');
+        Route::get('/create', [InventoryTransactionController::class, 'create'])->name('create');
         Route::post('/', [InventoryTransactionController::class, 'store'])->name('store');
     });
 

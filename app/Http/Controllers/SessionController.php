@@ -33,7 +33,7 @@ class SessionController extends Controller
     public function destroy(Request $request, string $sessionId)
     {
         if ($sessionId === $request->session()->getId()) {
-            return back()->with('error', 'You cannot delete your current session.');
+            return back()->with('error', 'Anda tidak dapat menghapus sesi aktif ini.');
         }
 
         DB::table('sessions')
@@ -41,6 +41,6 @@ class SessionController extends Controller
             ->where('user_id', $request->user()->id)
             ->delete();
 
-        return back()->with('success', 'Session terminated.');
+        return back()->with('success', 'Sesi telah diakhiri.');
     }
 }

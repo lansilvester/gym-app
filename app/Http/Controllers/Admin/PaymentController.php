@@ -69,7 +69,7 @@ class PaymentController extends Controller
             $invoice->update(['status' => 'partially_paid']);
         }
 
-        return redirect()->route('admin.payments.index')->with('success', 'Payment recorded successfully.');
+        return redirect()->route('admin.payments.index')->with('success', 'Pembayaran berhasil dicatat.');
     }
 
     public function show(Payment $payment)

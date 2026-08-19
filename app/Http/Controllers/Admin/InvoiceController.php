@@ -89,7 +89,7 @@ class InvoiceController extends Controller
             }
         });
 
-        return redirect()->route('admin.invoices.index')->with('success', 'Invoice created successfully.');
+        return redirect()->route('admin.invoices.index')->with('success', 'Faktur berhasil dibuat.');
     }
 
     public function show(Invoice $invoice)
@@ -155,7 +155,7 @@ class InvoiceController extends Controller
             }
         });
 
-        return redirect()->route('admin.invoices.show', $invoice)->with('success', 'Invoice updated successfully.');
+        return redirect()->route('admin.invoices.show', $invoice)->with('success', 'Faktur berhasil diperbarui.');
     }
 
     public function destroy(Invoice $invoice)
@@ -164,6 +164,6 @@ class InvoiceController extends Controller
 
         $invoice->items()->delete();
         $invoice->delete();
-        return redirect()->route('admin.invoices.index')->with('success', 'Invoice deleted.');
+        return redirect()->route('admin.invoices.index')->with('success', 'Faktur berhasil dihapus.');
     }
 }

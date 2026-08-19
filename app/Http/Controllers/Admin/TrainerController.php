@@ -72,7 +72,7 @@ class TrainerController extends Controller
             'is_available' => $validated['is_available'] ?? true,
         ]);
 
-        return redirect()->route('admin.trainers.index')->with('success', 'Trainer created successfully.');
+        return redirect()->route('admin.trainers.index')->with('success', 'Pelatih berhasil dibuat.');
     }
 
     public function show(Trainer $trainer)
@@ -122,7 +122,7 @@ class TrainerController extends Controller
             'is_available' => $validated['is_available'] ?? true,
         ]);
 
-        return redirect()->route('admin.trainers.show', $trainer)->with('success', 'Trainer updated successfully.');
+        return redirect()->route('admin.trainers.show', $trainer)->with('success', 'Pelatih berhasil diperbarui.');
     }
 
     public function destroy(Trainer $trainer)
@@ -130,7 +130,7 @@ class TrainerController extends Controller
         $this->authorize('delete', $trainer);
 
         $trainer->user->delete();
-        return redirect()->route('admin.trainers.index')->with('success', 'Trainer deleted successfully.');
+        return redirect()->route('admin.trainers.index')->with('success', 'Pelatih berhasil dihapus.');
     }
 
     public function updateSchedule(Request $request, Trainer $trainer)
@@ -156,6 +156,6 @@ class TrainerController extends Controller
             ]);
         }
 
-        return redirect()->route('admin.trainers.show', $trainer)->with('success', 'Schedule updated successfully.');
+        return redirect()->route('admin.trainers.show', $trainer)->with('success', 'Jadwal berhasil diperbarui.');
     }
 }

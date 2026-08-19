@@ -1,9 +1,9 @@
 @extends('layouts.app')
-@section('title', 'Edit Role')
+@section('title', 'Ubah Role')
 
 @section('content')
 <div class="max-w-3xl">
-    <h1 class="text-2xl font-bold text-gray-800 mb-4">Edit Role: {{ $role->display_name ?? $role->name }}</h1>
+    <h1 class="text-2xl font-bold text-gray-800 mb-4">Ubah Role: {{ $role->display_name ?? $role->name }}</h1>
 
     @if($errors->any())
         <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm mb-4">
@@ -20,22 +20,22 @@
         @method('PUT')
         <div class="grid grid-cols-2 gap-4">
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Name *</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Nama *</label>
                 <input type="text" name="name" value="{{ old('name', $role->name) }}" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" required>
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Display Name</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Nama Tampilan</label>
                 <input type="text" name="display_name" value="{{ old('display_name', $role->display_name) }}" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
             </div>
         </div>
 
         <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Deskripsi</label>
             <textarea name="description" rows="2" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">{{ old('description', $role->description) }}</textarea>
         </div>
 
         <div>
-            <h3 class="font-semibold text-gray-700 border-b pb-2 mb-3">Permissions</h3>
+            <h3 class="font-semibold text-gray-700 border-b pb-2 mb-3">Izin</h3>
             @php
                 $rolePermissionNames = $role->permissions->pluck('name')->toArray();
             @endphp
@@ -57,8 +57,8 @@
         </div>
 
         <div class="flex gap-2 pt-4">
-            <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg text-sm hover:bg-blue-700">Update Role</button>
-            <a href="{{ route('admin.roles.index') }}" class="bg-gray-200 text-gray-700 px-6 py-2 rounded-lg text-sm hover:bg-gray-300">Cancel</a>
+            <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg text-sm hover:bg-blue-700">Perbarui Role</button>
+            <a href="{{ route('admin.roles.index') }}" class="bg-gray-200 text-gray-700 px-6 py-2 rounded-lg text-sm hover:bg-gray-300">Batal</a>
         </div>
     </form>
 </div>

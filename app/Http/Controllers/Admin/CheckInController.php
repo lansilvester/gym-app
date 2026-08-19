@@ -58,7 +58,7 @@ class CheckInController extends Controller
 
         CheckIn::create($validated);
 
-        return redirect()->route('admin.checkins.index')->with('success', 'Member checked in successfully.');
+        return redirect()->route('admin.checkins.index')->with('success', 'Anggota berhasil check in.');
     }
 
     public function checkOut(CheckIn $checkIn)
@@ -66,11 +66,11 @@ class CheckInController extends Controller
         $this->authorize('update', $checkIn);
 
         if ($checkIn->check_out_at) {
-            return back()->with('error', 'Member has already checked out.');
+            return back()->with('error', 'Anggota sudah melakukan check out.');
         }
 
         $checkIn->update(['check_out_at' => now()]);
 
-        return redirect()->route('admin.checkins.index')->with('success', 'Member checked out successfully.');
+        return redirect()->route('admin.checkins.index')->with('success', 'Anggota berhasil check out.');
     }
 }

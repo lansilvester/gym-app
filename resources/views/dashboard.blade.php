@@ -1,7 +1,7 @@
 @extends('layouts.app')
-@section('title', 'Dashboard')
-@section('page-title', 'Dashboard')
-@section('page-subtitle', "Welcome back! Here's what's happening at your gym today.")
+@section('title', 'Dasbor')
+@section('page-title', 'Dasbor')
+@section('page-subtitle', 'Selamat datang kembali! Berikut yang terjadi di gym Anda hari ini.')
 
 @section('content')
 <div class="space-y-6">
@@ -11,7 +11,7 @@
         <div class="stat-card animate-fade-in-up delay-100" style="background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);">
             <div class="flex items-start justify-between">
                 <div>
-                    <p class="text-indigo-100 text-sm font-medium">Total Members</p>
+                    <p class="text-indigo-100 text-sm font-medium">Total Anggota</p>
                     <p class="text-3xl font-extrabold text-white mt-1">{{ $stats['total_members'] }}</p>
                 </div>
                 <div class="w-11 h-11 rounded-xl bg-white/20 flex items-center justify-center">
@@ -23,14 +23,14 @@
                     <svg class="w-3 h-3 mr-0.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
                     +{{ $stats['new_this_week'] }}
                 </span>
-                <span class="text-indigo-200 text-xs">new this week</span>
+                <span class="text-indigo-200 text-xs">baru minggu ini</span>
             </div>
         </div>
 
         <div class="stat-card animate-fade-in-up delay-200" style="background: linear-gradient(135deg, #10b981 0%, #34d399 100%);">
             <div class="flex items-start justify-between">
                 <div>
-                    <p class="text-emerald-100 text-sm font-medium">Active Subscriptions</p>
+                    <p class="text-emerald-100 text-sm font-medium">Langganan Aktif</p>
                     <p class="text-3xl font-extrabold text-white mt-1">{{ $stats['active_subscriptions'] }}</p>
                 </div>
                 <div class="w-11 h-11 rounded-xl bg-white/20 flex items-center justify-center">
@@ -41,14 +41,14 @@
                 <div class="progress-bar">
                     <div class="progress-bar-fill bg-white/40" style="width: {{ $stats['total_members'] > 0 ? round(($stats['active_subscriptions'] / $stats['total_members']) * 100) : 0 }}%"></div>
                 </div>
-                <p class="text-emerald-200 text-xs mt-1.5">{{ $stats['total_members'] > 0 ? round(($stats['active_subscriptions'] / $stats['total_members']) * 100) : 0 }}% conversion rate</p>
+                <p class="text-emerald-200 text-xs mt-1.5">{{ $stats['total_members'] > 0 ? round(($stats['active_subscriptions'] / $stats['total_members']) * 100) : 0 }}% tingkat konversi</p>
             </div>
         </div>
 
         <div class="stat-card animate-fade-in-up delay-300" style="background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);">
             <div class="flex items-start justify-between">
                 <div>
-                    <p class="text-amber-100 text-sm font-medium">Today Check-ins</p>
+                    <p class="text-amber-100 text-sm font-medium">Check-in Hari Ini</p>
                     <p class="text-3xl font-extrabold text-white mt-1">{{ $stats['today_checkins'] }}</p>
                 </div>
                 <div class="w-11 h-11 rounded-xl bg-white/20 flex items-center justify-center">
@@ -57,14 +57,14 @@
             </div>
             <div class="flex items-center gap-1.5 mt-4">
                 <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
-                <span class="text-amber-200 text-xs font-medium">Live tracking</span>
+                <span class="text-amber-200 text-xs font-medium">Pelacakan langsung</span>
             </div>
         </div>
 
         <div class="stat-card animate-fade-in-up delay-400" style="background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);">
             <div class="flex items-start justify-between">
                 <div>
-                    <p class="text-purple-100 text-sm font-medium">Revenue This Month</p>
+                    <p class="text-purple-100 text-sm font-medium">Pendapatan Bulan Ini</p>
                     <p class="text-2xl font-extrabold text-white mt-1">Rp {{ number_format($stats['revenue_this_month'], 0, ',', '.') }}</p>
                 </div>
                 <div class="w-11 h-11 rounded-xl bg-white/20 flex items-center justify-center">
@@ -88,7 +88,7 @@
                     {{ $revenueChange }}%
                 </span>
                 @endif
-                <span class="text-purple-200 text-xs">vs last month</span>
+                <span class="text-purple-200 text-xs">dibandingkan bulan lalu</span>
             </div>
         </div>
     </div>
@@ -101,7 +101,7 @@
                     <svg class="w-6 h-6 text-amber-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z"/></svg>
                 </div>
                 <div>
-                    <p class="text-slate-400 text-xs font-medium uppercase tracking-wide">Pending Invoices</p>
+                    <p class="text-slate-400 text-xs font-medium uppercase tracking-wide">Tagihan Tertunda</p>
                     <p class="text-2xl font-bold text-slate-800">{{ $stats['pending_invoices'] }}</p>
                 </div>
             </div>
@@ -113,7 +113,7 @@
                     <svg class="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
                 </div>
                 <div>
-                    <p class="text-slate-400 text-xs font-medium uppercase tracking-wide">Low Stock Items</p>
+                    <p class="text-slate-400 text-xs font-medium uppercase tracking-wide">Barang Stok Menipis</p>
                     <p class="text-2xl font-bold text-slate-800">{{ $stats['low_stock_items'] }}</p>
                 </div>
             </div>
@@ -125,7 +125,7 @@
                     <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4.5c-.77-.833-2.694-.833-3.464 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z"/></svg>
                 </div>
                 <div>
-                    <p class="text-slate-400 text-xs font-medium uppercase tracking-wide">Overdue Maintenance</p>
+                    <p class="text-slate-400 text-xs font-medium uppercase tracking-wide">Pemeliharaan Terlambat</p>
                     <p class="text-2xl font-bold text-slate-800">{{ $stats['overdue_maintenance'] }}</p>
                 </div>
             </div>
@@ -137,11 +137,11 @@
         <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-100 p-6 animate-fade-in-up delay-300">
             <div class="flex items-center justify-between mb-6">
                 <div>
-                    <h3 class="text-base font-bold text-slate-800">Revenue Overview</h3>
-                    <p class="text-xs text-slate-400 mt-0.5">Last 6 months</p>
+                    <h3 class="text-base font-bold text-slate-800">Ikhtisar Pendapatan</h3>
+                    <p class="text-xs text-slate-400 mt-0.5">6 bulan terakhir</p>
                 </div>
                 <div class="text-right">
-                    <p class="text-xs text-slate-400">All Time</p>
+                    <p class="text-xs text-slate-400">Semua Waktu</p>
                     <p class="text-sm font-bold text-slate-800">Rp {{ number_format($stats['total_revenue'], 0, ',', '.') }}</p>
                 </div>
             </div>
@@ -168,10 +168,10 @@
         </div>
 
         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 animate-fade-in-up delay-400">
-            <h3 class="text-base font-bold text-slate-800 mb-1">Membership Plans</h3>
-            <p class="text-xs text-slate-400 mb-5">Active subscriptions distribution</p>
+            <h3 class="text-base font-bold text-slate-800 mb-1">Paket Keanggotaan</h3>
+            <p class="text-xs text-slate-400 mb-5">Distribusi langganan aktif</p>
             @if($membershipBreakdown->isEmpty())
-                <div class="flex items-center justify-center h-32 text-slate-400 text-sm">No active subscriptions</div>
+                <div class="flex items-center justify-center h-32 text-slate-400 text-sm">Tidak ada langganan aktif</div>
             @else
                 @php
                     $totalSubs = $membershipBreakdown->sum('count');
@@ -202,8 +202,8 @@
         <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-100 p-6 animate-fade-in-up delay-500">
             <div class="flex items-center justify-between mb-6">
                 <div>
-                    <h3 class="text-base font-bold text-slate-800">Check-in Activity</h3>
-                    <p class="text-xs text-slate-400 mt-0.5">Last 7 days</p>
+                    <h3 class="text-base font-bold text-slate-800">Aktivitas Check-in</h3>
+                    <p class="text-xs text-slate-400 mt-0.5">7 hari terakhir</p>
                 </div>
                 <div class="w-9 h-9 rounded-xl bg-sky-50 flex items-center justify-center">
                     <svg class="w-5 h-5 text-sky-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
@@ -231,8 +231,8 @@
         </div>
 
         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 animate-fade-in-up delay-500">
-            <h3 class="text-base font-bold text-slate-800 mb-1">Quick Actions</h3>
-            <p class="text-xs text-slate-400 mb-5">Frequently used shortcuts</p>
+            <h3 class="text-base font-bold text-slate-800 mb-1">Aksi Cepat</h3>
+            <p class="text-xs text-slate-400 mb-5">Pintasan yang sering digunakan</p>
             <div class="grid grid-cols-2 gap-3">
                 <a href="{{ route('admin.checkins.index') }}" class="quick-action">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -240,15 +240,15 @@
                 </a>
                 <a href="{{ route('admin.members.create') }}" class="quick-action">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
-                    <span class="text-xs font-semibold">Add Member</span>
+                    <span class="text-xs font-semibold">Tambah Anggota</span>
                 </a>
                 <a href="{{ route('admin.invoices.create') }}" class="quick-action">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z"/></svg>
-                    <span class="text-xs font-semibold">New Invoice</span>
+                    <span class="text-xs font-semibold">Tagihan Baru</span>
                 </a>
                 <a href="{{ route('admin.pt-bookings.index') }}" class="quick-action">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                    <span class="text-xs font-semibold">PT Booking</span>
+                    <span class="text-xs font-semibold">Booking PT</span>
                 </a>
             </div>
         </div>
@@ -262,9 +262,9 @@
                     <div class="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center">
                         <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
-                    <h3 class="text-sm font-bold text-slate-800">Recent Check-ins</h3>
+                    <h3 class="text-sm font-bold text-slate-800">Check-in Terbaru</h3>
                 </div>
-                <a href="{{ route('admin.checkins.index') }}" class="text-xs font-semibold text-indigo-600 hover:text-indigo-700 transition">View All</a>
+                <a href="{{ route('admin.checkins.index') }}" class="text-xs font-semibold text-indigo-600 hover:text-indigo-700 transition">Lihat Semua</a>
             </div>
             <div class="divide-y divide-slate-50">
                 @forelse($recent_checkins as $checkin)
@@ -286,7 +286,7 @@
                 @empty
                 <div class="px-6 py-10 text-center">
                     <svg class="w-10 h-10 text-slate-200 mx-auto mb-2" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    <p class="text-sm text-slate-400">No check-ins today</p>
+                    <p class="text-sm text-slate-400">Tidak ada check-in hari ini</p>
                 </div>
                 @endforelse
             </div>
@@ -298,9 +298,9 @@
                     <div class="w-8 h-8 rounded-lg bg-purple-50 flex items-center justify-center">
                         <svg class="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                     </div>
-                    <h3 class="text-sm font-bold text-slate-800">Upcoming PT Bookings</h3>
+                    <h3 class="text-sm font-bold text-slate-800">Booking PT Mendatang</h3>
                 </div>
-                <a href="{{ route('admin.pt-bookings.index') }}" class="text-xs font-semibold text-purple-600 hover:text-purple-700 transition">View All</a>
+                <a href="{{ route('admin.pt-bookings.index') }}" class="text-xs font-semibold text-purple-600 hover:text-purple-700 transition">Lihat Semua</a>
             </div>
             <div class="divide-y divide-slate-50">
                 @forelse($upcoming_bookings as $booking)
@@ -311,7 +311,7 @@
                         </div>
                         <div>
                             <p class="text-sm font-medium text-slate-800">{{ $booking->member->user->name ?? 'N/A' }}</p>
-                            <p class="text-[11px] text-slate-400">with {{ $booking->trainer->user->name ?? 'N/A' }}</p>
+                            <p class="text-[11px] text-slate-400">bersama {{ $booking->trainer->user->name ?? 'N/A' }}</p>
                         </div>
                     </div>
                     <div class="text-right">
@@ -333,7 +333,7 @@
                 @empty
                 <div class="px-6 py-10 text-center">
                     <svg class="w-10 h-10 text-slate-200 mx-auto mb-2" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
-                    <p class="text-sm text-slate-400">No upcoming bookings</p>
+                    <p class="text-sm text-slate-400">Tidak ada booking mendatang</p>
                 </div>
                 @endforelse
             </div>
@@ -348,18 +348,18 @@
                 <div class="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center">
                     <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
                 </div>
-                <h3 class="text-sm font-bold text-slate-800">Latest Members</h3>
+                <h3 class="text-sm font-bold text-slate-800">Anggota Terbaru</h3>
             </div>
-            <a href="{{ route('admin.members.index') }}" class="text-xs font-semibold text-emerald-600 hover:text-emerald-700 transition">View All</a>
+            <a href="{{ route('admin.members.index') }}" class="text-xs font-semibold text-emerald-600 hover:text-emerald-700 transition">Lihat Semua</a>
         </div>
         <div class="overflow-x-auto">
             <table class="w-full text-sm">
                 <thead>
                     <tr class="border-b border-slate-100">
-                        <th class="px-6 py-3 text-left text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Member</th>
-                        <th class="px-6 py-3 text-left text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Code</th>
-                        <th class="px-6 py-3 text-left text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Package</th>
-                        <th class="px-6 py-3 text-left text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Joined</th>
+                        <th class="px-6 py-3 text-left text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Anggota</th>
+                        <th class="px-6 py-3 text-left text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Kode</th>
+                        <th class="px-6 py-3 text-left text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Paket</th>
+                        <th class="px-6 py-3 text-left text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Bergabung</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-50">
@@ -381,7 +381,7 @@
                             @if($member->activeSubscription)
                                 <span class="badge badge-success text-[10px]">{{ $member->activeSubscription->package->name ?? 'N/A' }}</span>
                             @else
-                                <span class="badge badge-slate text-[10px]">No plan</span>
+                                <span class="badge badge-slate text-[10px]">Tidak ada paket</span>
                             @endif
                         </td>
                         <td class="px-6 py-3.5 text-xs text-slate-500">{{ $member->created_at->diffForHumans() }}</td>

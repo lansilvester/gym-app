@@ -1,9 +1,9 @@
 @extends('layouts.app')
-@section('title', 'Add Role')
+@section('title', 'Tambah Role')
 
 @section('content')
 <div class="max-w-3xl">
-    <h1 class="text-2xl font-bold text-gray-800 mb-4">Add New Role</h1>
+    <h1 class="text-2xl font-bold text-gray-800 mb-4">Tambah Role Baru</h1>
 
     @if($errors->any())
         <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm mb-4">
@@ -19,22 +19,22 @@
         @csrf
         <div class="grid grid-cols-2 gap-4">
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Name *</label>
-                <input type="text" name="name" value="{{ old('name') }}" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" placeholder="e.g. admin, trainer, receptionist" required>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Nama *</label>
+                <input type="text" name="name" value="{{ old('name') }}" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" placeholder="contoh: admin, trainer, resepsionis" required>
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Display Name</label>
-                <input type="text" name="display_name" value="{{ old('display_name') }}" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" placeholder="e.g. Administrator">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Nama Tampilan</label>
+                <input type="text" name="display_name" value="{{ old('display_name') }}" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" placeholder="contoh: Administrator">
             </div>
         </div>
 
         <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Deskripsi</label>
             <textarea name="description" rows="2" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">{{ old('description') }}</textarea>
         </div>
 
         <div>
-            <h3 class="font-semibold text-gray-700 border-b pb-2 mb-3">Permissions</h3>
+            <h3 class="font-semibold text-gray-700 border-b pb-2 mb-3">Izin</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 @foreach($permissions as $group => $groupPermissions)
                 <div class="border border-gray-200 rounded-lg p-3">
@@ -53,8 +53,8 @@
         </div>
 
         <div class="flex gap-2 pt-4">
-            <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg text-sm hover:bg-blue-700">Create Role</button>
-            <a href="{{ route('admin.roles.index') }}" class="bg-gray-200 text-gray-700 px-6 py-2 rounded-lg text-sm hover:bg-gray-300">Cancel</a>
+            <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg text-sm hover:bg-blue-700">Buat Role</button>
+            <a href="{{ route('admin.roles.index') }}" class="bg-gray-200 text-gray-700 px-6 py-2 rounded-lg text-sm hover:bg-gray-300">Batal</a>
         </div>
     </form>
 </div>

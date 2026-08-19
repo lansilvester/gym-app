@@ -74,7 +74,7 @@ class MemberController extends Controller
             'emergency_contact_phone' => $validated['emergency_contact_phone'] ?? null,
         ]);
 
-        return redirect()->route('admin.members.index')->with('success', 'Member created successfully.');
+        return redirect()->route('admin.members.index')->with('success', 'Anggota berhasil dibuat.');
     }
 
     public function show(Member $member)
@@ -133,7 +133,7 @@ class MemberController extends Controller
             'emergency_contact_phone' => $validated['emergency_contact_phone'] ?? null,
         ]);
 
-        return redirect()->route('admin.members.show', $member)->with('success', 'Member updated successfully.');
+        return redirect()->route('admin.members.show', $member)->with('success', 'Anggota berhasil diperbarui.');
     }
 
     public function destroy(Member $member)
@@ -141,6 +141,6 @@ class MemberController extends Controller
         $this->authorize('delete', $member);
 
         $member->user->delete();
-        return redirect()->route('admin.members.index')->with('success', 'Member deleted successfully.');
+        return redirect()->route('admin.members.index')->with('success', 'Anggota berhasil dihapus.');
     }
 }
